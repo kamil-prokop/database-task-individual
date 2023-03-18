@@ -73,6 +73,27 @@ def update(connection, table, id, **kwargs):
         print(err)
 
 
+def delete_where(connection, table, **kwargs):
+    qs=[]
+    values = tuple()
+    for k, v in kwargs.items():
+        qs.append(f"{k}=?")
+        values += (v,)
+    q= " AND ".join(qs)
+    sql = f'DELETE from {table} WHERE {q}'
+    cursor = connection.cursor()
+    cursor.execute(sql, values)
+    connection.commit()
+    print("deleted")
+
+
+def delete_all(connections, table):
+    sql = f'DELETE FROM {table}'
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    connection.commit()
+    print("deleted")
+
 
 if __name__ == "__main__":
     
@@ -93,6 +114,5 @@ if __name__ == "__main__":
 
     select_where(connection, "my_database_task", status = "kupione")
     update(connection, "my-database-task", 1, status = "kupione")
-    
 
     connection.commit()
