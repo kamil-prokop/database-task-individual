@@ -19,9 +19,15 @@ def execute_sql(connection, sql):
 
 
 if __name__ == "__main__":
+    database_chosen = "my-database-for-task.db"
     my_database = """
     CREATE TABLE IF NOT EXISTS my_database_task (
-    id integer PRIMARY KEY
-
-    )
+    id integer PRIMARY KEY,
+    produkt text NOT NULL,
+    cena float NOT NULL,
+    ile float NOT NULL,
+    status VARCHAR(20),
+    );
     """
+    connection = create_connection(database_chosen)
+    execute_sql(connection, my_database)
